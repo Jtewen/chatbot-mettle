@@ -131,7 +131,7 @@ uscis-chatbot/
 
 The project includes a fine-tuning implementation that allows the model to learn directly from the USCIS manual using QLoRA (Quantized Low-Rank Adaptation). This approach significantly reduces memory requirements while maintaining model quality. It also defaults to using Llama 3.2 for a smaller footprint.
 
-I've decided to take a more manual approach to fine-tuning, as opposed to using the Hugging Face Trainer API or Unsloth. This allows for more control over the training process and the ability to implement custom techniques such as multi-format prompt templates and data augmentation. It also reduces the amount of dependencies and external libraries required for the proof of concept.
+I've decided to take a more manual approach to fine-tuning, as opposed to using the Hugging Face Trainer API or Unsloth. This allows for more control over the training process and the ability to implement custom techniques such as multi-format prompt templates and data augmentation. It also reduces the amount of dependencies and external libraries required for the proof of concept. At scale, I would recommend using a more specialized framework such as Unsloth or TRL.
 
 It is untested as I do not have the resources to run it in a timely manner.
 
