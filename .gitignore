@@ -1,0 +1,25 @@
+# Data files
+data/*.pdf
+data/faiss_store/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+**/__pycache__/
+
+# Virtual environment
+venv/
+env/
+
+# Model outputs
+models/
+uscis-llama-qlora/
+uscis-llama-qlora-final/
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log

@@ -1,0 +1,18 @@
+model:
+  name: "llama3.1:8b"
+  temperature: 0.7
+  top_p: 0.9
+
+embeddings:
+  model: "nomic-embed-text"
+  chunk_size: 1024
+  chunk_overlap: 128
+
+retriever:
+  use_compression: true
+  num_documents: 3
+  fetch_k: 5
+  faiss_store_path: "data/faiss_store"
+
+paths:
+  pdf_path: "data/uscis_manual.pdf"
