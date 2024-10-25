@@ -51,10 +51,12 @@ An intelligent chatbot system designed to answer questions based on the USCIS ma
    .\venv\Scripts\activate
    ```
 
-4. Download the LLama model:
+4. Download the ollama models:
    ```bash
-   ollama pull llama3.1:8b
+   ollama pull llama3.1:8b && ollama pull nomic-embed-text
    ```
+
+5. Download the USCIS manual PDF and place it in the `data` directory with the name `uscis_manual.pdf`
 
 ## Running the Application
 
