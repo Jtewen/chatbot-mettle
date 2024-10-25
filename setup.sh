@@ -35,8 +35,10 @@ pip install -r requirements.txt
 
 # Check if Ollama is installed
 if ! command -v ollama &> /dev/null; then
-    echo "⚠️  Ollama not found. Please install from https://ollama.ai"
-    echo "After installing, run: ollama pull llama3.1:8b"
+    echo ""
+    echo ""
+    echo "WARNING: Ollama not found. Please install from https://ollama.ai"
+    echo "After installing, run: ollama pull llama3.1:8b && ollama pull nomic-embed-text"
 fi
 
 echo "Setup complete! To start using the application:"

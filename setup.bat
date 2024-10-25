@@ -28,8 +28,10 @@ if errorlevel 1 (
 :: Check if Ollama is installed
 where ollama >nul 2>nul
 if %ERRORLEVEL% NEQ 0 (
+    echo:
+    echo:
     echo WARNING: Ollama not found. Please install from https://ollama.ai/download/windows
-    echo After installing, run: ollama pull llama3.1:8b
+    echo After installing, run: ollama pull llama3.1:8b ; ollama pull nomic-embed-text
 )
 
 echo.
