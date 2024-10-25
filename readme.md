@@ -56,7 +56,7 @@ An intelligent chatbot system designed to answer questions based on the USCIS ma
    ollama pull llama3.1:8b && ollama pull nomic-embed-text
    ```
 
-5. Download the USCIS manual PDF and place it in the `data` directory with the name `uscis_manual.pdf`
+5. Download the USCIS manual PDF from `https://www.uscis.gov/book/export/html/68600` and place it in the `data` directory with the name `uscis_manual.pdf`
 
 ## Running the Application
 
