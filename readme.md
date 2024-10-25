@@ -28,7 +28,7 @@ An intelligent chatbot system designed to answer questions based on the USCIS ma
 
 2. Run the setup script:
    
-   On Unix/macOS:
+   On Unix/macOS (MacOS requires `brew` to be installed):
    ```bash
    chmod +x setup.sh
    ./setup.sh
@@ -36,7 +36,7 @@ An intelligent chatbot system designed to answer questions based on the USCIS ma
    
    On Windows:
    ```bash
-   setup.bat
+   ./setup.bat
    ```
 
 3. Activate the virtual environment:
