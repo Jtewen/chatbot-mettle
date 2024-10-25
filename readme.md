@@ -11,6 +11,7 @@ This was tested on MacOS with an M2 Pro chip, and Windows with an RTX 3060 Ti.
 - Intelligent context-aware responses using LLama 3.1 8b
 - Citation support with page references
 - Customizable model temperature and retriever k-value
+- Allows for rapid prototyping and versioning through YAML configurations
 
 ## Prerequisites
 
