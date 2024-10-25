@@ -31,7 +31,6 @@ def get_platform_specific_paths(config: Dict[str, Any]) -> Dict[str, Any]:
     system = platform.system()
     paths = config.get('paths', {})
     
-    # Convert forward slashes to backslashes on Windows
     if system == "Windows":
         for key, path in paths.items():
             paths[key] = path.replace('/', '\\')

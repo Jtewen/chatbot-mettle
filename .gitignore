@@ -1,5 +1,5 @@
 # Data files
-data/*.pdf
+data/uscis_manual.pdf
 data/faiss_store/
 
 # Python cache

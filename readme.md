@@ -2,18 +2,21 @@
 
 An intelligent chatbot system designed to answer questions based on the USCIS manual using advanced language models and retrieval-augmented generation.
 
+This was tested on MacOS with an M2 Pro chip, and Windows with an RTX 3060 Ti.
+
 ## Features
 
 - Interactive interface using Streamlit
 - RAG-based document retrieval using FAISS
 - Intelligent context-aware responses using LLama 3.1 8b
 - Citation support with page references
+- Customizable model temperature and retriever k-value
 
 ## Prerequisites
 
 - Python 3.10 (required for compatibility)
 - [Ollama](https://ollama.ai/) installed and running
-- At least 16GB RAM recommended
+- At least 16GB RAM recommended (32GB used in testing)
 - For fine-tuning (optional):
   - NVIDIA GPU with CUDA support, or
   - Apple Silicon (M1/M2/M3) for MPS acceleration
@@ -22,8 +25,8 @@ An intelligent chatbot system designed to answer questions based on the USCIS ma
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/uscis-chatbot.git
-   cd uscis-chatbot
+   git clone https://github.com/Jtewen/chatbot-mettle.git
+   cd chatbot-mettle
    ```
 
 2. Run the setup script:
@@ -78,7 +81,7 @@ An intelligent chatbot system designed to answer questions based on the USCIS ma
 
 3. Open your browser and navigate to `http://localhost:8501`
 
-## Optional: Fine-tuning Setup (a trained model from this process is already included in the repo)
+## Optional: Fine-tuning Setup (untested)
 
 If you plan to use the fine-tuning functionality:
 
@@ -91,16 +94,21 @@ If you plan to use the fine-tuning functionality:
    python -m src.model.fine_tuning
    ```
 
-Note: Fine-tuning requires significant computational resources. A GPU is recommended for reasonable training times.
-
 ## Technology Stack
 
+### RAG
 - **Python**: Core programming language (3.8+)
 - **LLama 3.1**: 8B parameter language model for natural language understanding
 - **LangChain**: Framework for composing language model applications
 - **FAISS**: Vector database for similarity search and document retrieval
 - **Streamlit**: Web framework for building the user interface
 - **Ollama**: LLM model serving and management platform
+
+### Fine-tuning
+- **Python**: Core programming language (3.10+)
+- **Meta-Llama 3.2**: 1B parameter language model for natural language understanding
+- **QLoRA**: Quantized Low-Rank Adaptation for efficient fine-tuning on limited hardware.
+- **Hugging Face**: Model hosting for local download.
 
 ## Project Structure
 
@@ -121,19 +129,41 @@ uscis-chatbot/
 
 ## Advanced Task: Fine-tuning Implementation
 
-The project includes a fine-tuning implementation that allows the model to learn from the USCIS manual directly. This approach uses QLoRA (Quantized Low-Rank Adaptation) to efficiently fine-tune the LLama model while maintaining reasonable resource requirements.
+The project includes a fine-tuning implementation that allows the model to learn directly from the USCIS manual using QLoRA (Quantized Low-Rank Adaptation). This approach significantly reduces memory requirements while maintaining model quality. It also defaults to using Llama 3.2 for a smaller footprint.
 
-Key components of the fine-tuning process:
+I've decided to take a more manual approach to fine-tuning, as opposed to using the Hugging Face Trainer API or Unsloth. This allows for more control over the training process and the ability to implement custom techniques such as multi-format prompt templates and data augmentation. It also reduces the amount of dependencies and external libraries required for the proof of concept.
 
-1. **Data Preparation**: Documents are processed into question-answer pairs
-2. **Model Configuration**: Uses 8-bit quantization with LoRA for efficient training
-3. **Training Process**: Implements supervised fine-tuning with custom prompts
+It is untested as I do not have the resources to run it in a timely manner.
 
-To explore the fine-tuning implementation, see `src/model/fine_tuning.py`.
+### Data Processing Pipeline
+- Multi-format prompt templates
+- Intelligent text chunking with boundary detection
+- Data augmentation with controlled noise injection (typos, formatting variations)
+- Dynamic dataset filtering and validation (not implemented)
+
+### Training Architecture
+- 4-bit quantization with double quantization
+- Advanced LoRA configuration targeting multiple attention layers
+- Cosine learning rate scheduling with warm restarts
+- Gradient checkpointing and mixed precision training
+
+### Evaluation Framework (not implemented as it would require a tuned working model to properly implement)
+- Perplexity and response accuracy metrics
+- Citation verification system
+- Context relevance scoring
+- Automated evaluation pipeline
+
+### Quality Assurance
+- Experiment tracking with W&B or tensorboard integration
+- Logging and monitoring
+- Model checkpoint management
+- Performance regression testing
+
+To explore the fine-tuning implementation, see `src/model/fine_tuning.py` and `src/model/text_augmentation.py`.
 
 ## System Requirements
 
-- Python 3.8 or higher
+- Python 3.10 preferred
 - Operating System:
   - Windows 10/11
   - macOS 10.15 or higher
@@ -144,3 +174,10 @@ To explore the fine-tuning implementation, see `src/model/fine_tuning.py`.
   - GPU: Optional, but recommended for training
     - NVIDIA GPU with CUDA support
     - Apple Silicon (M1/M2/M3) for MPS acceleration
+
+## Notes and Comments
+
+- The fine-tuning implementation is not yet tested.
+- I went overkill with the per-device settings as I was unsure of the hardware this would be tested on.
+- The RAG implementation has no caching or memory, as I didn't want to host a database. Memory seemed superfluous for the scope of this project.
+- The project structure is a bit overcomplicated for a proof of concept, but it allows for easy expansion and modification.

@@ -41,7 +41,6 @@ class USCISRetriever:
     
     def get_retriever(self, use_compression: bool = True, 
                      k: int = 3, fetch_k: int = 5):
-        """Get the retriever with optional context compression."""
         base_retriever = self.vectorstore.as_retriever(
             search_kwargs={
                 "k": k,
@@ -60,7 +59,6 @@ class USCISRetriever:
         return base_retriever
 
 def initialize_retriever(config: dict, llm = None):
-    """Initialize the retriever with configuration."""
     retriever = USCISRetriever(
         embedding_model=config.get('embeddings', {}).get('model', "nomic-embed-text"),
         store_path=config.get('retriever', {}).get('faiss_store_path', "data/faiss_store"),

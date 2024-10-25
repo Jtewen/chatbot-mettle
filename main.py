@@ -12,7 +12,6 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 def setup_args() -> argparse.ArgumentParser:
-    """Set up command-line arguments."""
     parser = argparse.ArgumentParser(description='USCIS Chatbot Runner')
     parser.add_argument(
         '--reinitialize',
@@ -28,7 +27,6 @@ def setup_args() -> argparse.ArgumentParser:
     return parser
 
 def check_python_version():
-    """Ensure Python version is compatible."""
     import sys
     
     min_version = (3, 8)

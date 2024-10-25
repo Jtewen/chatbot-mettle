@@ -39,10 +39,8 @@ def format_answer_with_links(result: Dict) -> Tuple[str, List[Dict[str, str]]]:
             context = context[:800].rsplit(' ', 1)[0] + '...'
         citations[page_number] = context
 
-    # Normalize double brackets to single
     answer = re.sub(r'\[\[([^\]]+)\]\]', r'[\1]', answer)
     
-    # Process citations from right to left to maintain string positions
     for match in sorted(
         re.finditer(r'\[(?:Page\s*)?(\d+)\]', answer), 
         key=lambda x: x.start(), 
@@ -73,21 +71,17 @@ def format_answer_with_links(result: Dict) -> Tuple[str, List[Dict[str, str]]]:
 
     return answer, formatted_citations
 
-# Parse arguments
 args = parse_args()
 config_path = args.config
 
-# Initialize session state before anything else
 if 'initialized' not in st.session_state:
     st.session_state.initialized = False
     st.session_state.user_question = ""
     st.session_state.bot_answer = ""
     st.session_state.footnotes = []
 
-# Set page config
 st.set_page_config(page_title="USCIS Chatbot", layout="wide")
 
-# Load configuration and initialize resources only once
 if not st.session_state.initialized:
     config = load_config(config_path)
     
@@ -144,7 +138,6 @@ if not st.session_state.initialized:
         document_variable_name="context"
     )
 
-    # Create retrieval chain with the correct parameter name
     qa = create_retrieval_chain(
         retriever=retriever,
         combine_docs_chain=document_chain
